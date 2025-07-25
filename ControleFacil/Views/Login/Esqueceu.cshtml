@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "Esqueceu Senha";
+}
+
+<div class="d-flex">
+    <div class="img-login"></div>
+    <div class="d-flex align-items-center justify-content-center text-center flex-column container-login gap-4">
+        <h1 class="title-login fw-normal">Esqueceu sua senha?</h1>
+        <p class="paragraph-login fw-normal">Coloque o email que irá receber a nova senha</p>
+        <input class="input-login border-0 fw-bold" placeholder="Email" type="email" />
+        <a asp-action="Index" class="option-login text-decoration-none d-inline-block">
+            <span class="hover-underline d-inline-block position-relative">Voltar</span>
+        </a>
+        <a asp-action="Senha" class="btn-login text-center border-0 fw-bold">Enviar</a>
+    </div>
+</div>

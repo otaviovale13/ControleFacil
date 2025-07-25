@@ -8,5 +8,20 @@ namespace ControleFacil.Controllers
         {
             return View();
         }
+
+        public IActionResult Cadastro()
+        {
+            return View();
+        }
+
+        public IActionResult Esqueceu()
+        {
+            return View();
+        }
+
+        public IActionResult Senha()
+        {
+            return View();
+        }
     }
 }
