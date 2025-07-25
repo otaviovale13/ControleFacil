@@ -18,7 +18,8 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    background-color: #2C3E50;
+    font-family: Roboto;
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
@@ -28,4 +29,95 @@ body {
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
+}
+
+.img-login {
+    width: 640px;
+    height: 720px;
+    left: 0px;
+    top: 0px;
+    background: url('/img/image 1.png');
+}
+
+.container-login {
+    width: 640px;
+    background-color: #D9D9D9;
+}
+
+.title-login {
+    font-size: 50px;
+    font-family: Roboto;
+    color: #2C3E50;
+    margin-bottom: 70px;
+}
+
+.input-login {
+    width: 383.38px;
+    height: 60px;
+    background-color: #2C3E50;
+    border-radius: 10px;
+    padding: 24px;
+    font-size: 15px;
+    color: #D9D9D9;
+    margin-bottom: 33px;
+}
+
+input.input-login:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px #2C3E50 inset !important;
+    -webkit-text-fill-color: #D9D9D9 !important;
+    caret-color: #D9D9D9 !important;
+    transition: background-color 5000s ease-in-out 0s; /* truque para evitar o flash amarelo */
+}
+
+.input-login:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.option-login {
+    font-size: 25px;
+    color: #E74C3C;
+    cursor: pointer;
+    margin-bottom: 33px;
+}
+
+.hover-underline {
+    color: #E74C3C;
+}
+
+    /* Linha escondida inicialmente */
+    .hover-underline::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 2px;
+        width: 100%;
+        background-color: #E74C3C;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease-in-out;
+    }
+
+/* Ativa as duas linhas ao passar o mouse no <a> */
+.option-login:hover .hover-underline::after {
+    transform: scaleX(1);
+}
+
+.btn-login {
+    width: 250px;
+    height: 60px;
+    background-color: #2C3E50;
+    border-radius: 10px;
+    font-size: 25px;
+    color: #D9D9D9;
+}
+
+.input-login:hover {
+    background-color: #34495E; /* tom levemente mais claro no hover */
+}
+
+.btn-login:hover {
+    background-color: #34495E; /* tom levemente mais claro no hover */
+    transition: background-color 0.2s ease-in-out;
 }
