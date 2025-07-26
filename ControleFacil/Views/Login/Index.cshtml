@@ -2,12 +2,14 @@
     ViewData["Title"] = "Login";
 }
 
-<div class="d-flex">
+@model ControleFacil.Models.Usuario
+
+<form onsubmit="return LogarUsuario(event)" class="d-flex">
     <div class="img-login"></div>
     <div class="d-flex align-items-center justify-content-center text-center flex-column container-login gap-4">
         <h1 class="title-login fw-normal">Já possui Conta?</h1>
-        <input class="input-login border-0 fw-bold" placeholder="Email" type="email" />
-        <input class="input-login border-0 fw-bold" placeholder="Senha" type="password" />
+        <input id="email" class="input-login border-0 fw-bold" placeholder="Email" type="email" />
+        <input id="senha" class="input-login border-0 fw-bold" placeholder="Senha" type="password" />
         <a asp-action="Esqueceu" class="option-login text-decoration-none d-inline-block">
             <span class="hover-underline d-inline-block position-relative">Esqueceu a Senha?</span>
         </a>
@@ -15,6 +17,10 @@
             <span class="hover-underline d-inline-block position-relative">Não possui conta?</span><br />
             <span class="hover-underline d-inline-block position-relative">Cadastre-se agora mesmo!</span>
         </a>
-        <button class="btn-login text-center border-0 fw-bold">Entrar</button>
+        <button type="submit" class="btn-login text-center border-0 fw-bold">Entrar</button>
     </div>
-</div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

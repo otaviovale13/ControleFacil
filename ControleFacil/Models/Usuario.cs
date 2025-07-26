@@ -1,7 +1,26 @@
-﻿namespace ControleFacil.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace ControleFacil.Models
 {
+    [Table("USUARIOS")]
     public class Usuario
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
+        [Required]
+        [StringLength(50)]
+        public string Nome { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [StringLength(50)]
+        public string Email { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        public string Senha { get; set; }
     }
 }

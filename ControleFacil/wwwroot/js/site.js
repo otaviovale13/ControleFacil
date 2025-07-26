@@ -1,1 +1,166 @@
-﻿
+﻿async function AdicionarUsuario(e) {
+    e.preventDefault();
+
+    var nome = document.getElementById("nome").value;
+    var email = document.getElementById("email").value;
+    var senha = document.getElementById("senha").value;
+    var confirmarSenha = document.getElementById("confirmarSenha").value;
+
+    if (!nome || !email || !senha || !confirmarSenha) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Campos obrigatórios',
+            text: 'Por favor, preencha todos os campos.'
+        });
+        return;
+    }
+
+    if (senha !== confirmarSenha) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Senha inválida',
+            text: 'As senhas não coincidem.'
+        });
+        return;
+    }
+
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Emial inválido',
+            text: 'Digite um email válido.'
+        });
+        return;
+    }
+
+    if (senha.length < 6) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Senha inválida',
+            text: 'A senha deve ter no mínimo 6 caracteres.'
+        });
+        return;
+    }
+
+    const novoUsuario = {
+        nome: nome,
+        email: email,
+        senha: senha
+    };
+
+    try {
+        const response = await fetch('/Login/AdicionarUsuario', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(novoUsuario)
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            Swal.fire({
+                icon: 'success',
+                title: 'Cadastro realizado!',
+                text: `Bem-vindo, ${data.nome}!`
+            }).then(() => {
+                window.location.href = `/Home/Index/${data.id}`;
+            });
+        } else if (response.status === 409) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Erro ao cadastrar',
+                text: 'Email já está cadastrado.'
+            });
+            return;
+        } else {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Erro',
+                text: 'Erro ao criar usuário.'
+            });
+            return;
+        }
+    } catch (error) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Erro na requisição',
+            text: error.message
+        });
+        return;
+    }
+}
+
+async function LogarUsuario(e) {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const senha = document.getElementById("senha").value;
+
+    if (!email || !senha) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Campos obrigatórios',
+            text: 'Por favor, preencha todos os campos.'
+        });
+        return;
+    }
+
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Email inválido',
+            text: 'Digite um email válido.'
+        });
+        return;
+    }
+
+    if (senha.length < 6) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Senha inválida',
+            text: 'A senha deve ter no mínimo 6 caracteres.'
+        });
+        return;
+    }
+
+    const usuario = { email, senha };
+
+    try {
+        const response = await fetch('/Login/LogarUsuario', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(usuario)
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            Swal.fire({
+                icon: 'success',
+                title: 'Login realizado!',
+                text: `Bem-vindo, ${data.nome}!`
+            }).then(() => {
+                window.location.href = `/Home/Index/${data.id}`;
+            });
+        } else if (response.status === 409) {
+            const error = await response.text();
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro de login',
+                text: error
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro',
+                text: 'Erro inesperado no login.'
+            });
+        }
+    } catch (error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Erro na requisição',
+            text: error.message
+        });
+    }
+}

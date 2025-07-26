@@ -2,18 +2,24 @@
     ViewData["Title"] = "Cadastro";
 }
 
-<div class="d-flex">
+@model ControleFacil.Models.Usuario
+
+<form onsubmit="return AdicionarUsuario(event)" class="d-flex">
     <div class="img-login"></div>
     <div class="d-flex align-items-center justify-content-center text-center flex-column container-login gap-4">
         <h1 class="title-login fw-normal">Não possui Conta?</h1>
-        <input class="input-login border-0 fw-bold" placeholder="Nome" type="text" />
-        <input class="input-login border-0 fw-bold" placeholder="Email" type="email" />
-        <input class="input-login border-0 fw-bold" placeholder="Senha" type="password" />
-        <input class="input-login border-0 fw-bold" placeholder="Confirmar Senha" type="password" />
+        <input id="nome" class="input-login border-0 fw-bold" placeholder="Nome" type="text" />
+        <input id="email" class="input-login border-0 fw-bold" placeholder="Email" type="email" />
+        <input id="senha" class="input-login border-0 fw-bold" placeholder="Senha" type="password" />
+        <input id="confirmarSenha" class="input-login border-0 fw-bold" placeholder="Confirmar Senha" type="password" />
         <a asp-action="Index" class="option-login text-decoration-none">
             <span class="hover-underline d-inline-block position-relative">Já possui conta?</span><br />
             <span class="hover-underline d-inline-block position-relative">Conecte-se agora mesmo!</span>
         </a>
-        <button class="btn-login text-center border-0 fw-bold">Cadastrar</button>
+        <button type="submit" class="btn-login text-center border-0 fw-bold">Cadastrar</button>
     </div>
-</div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
