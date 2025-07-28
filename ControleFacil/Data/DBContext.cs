@@ -12,5 +12,6 @@ namespace ControleFacil.Data
         }
 
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<TokenRecuperacao> TokensRecuperacao { get; set; }
     }
 }

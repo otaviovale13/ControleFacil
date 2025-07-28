@@ -1,4 +1,5 @@
 using ControleFacil.Data;
+using ControleFacil.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<DBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("strConn")));
+
+builder.Services.AddScoped<EmailService>();
 
 var app = builder.Build();
 
