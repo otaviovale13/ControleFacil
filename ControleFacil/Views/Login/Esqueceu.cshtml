@@ -6,10 +6,10 @@
 
 <div class="d-flex">
     <div class="img-login"></div>
-    <form asp-action="EnviarLinkRecuperacao" method="post" class="d-flex align-items-center justify-content-center text-center flex-column container-login gap-4">
+    <form onsubmit="return EnviarLinkRecuperacao(event)" class="d-flex align-items-center justify-content-center text-center flex-column container-login gap-4">
         <h1 class="title-login fw-normal">Esqueceu sua senha?</h1>
         <p class="paragraph-login fw-normal">Coloque o email que irá receber a nova senha</p>
-        <input name="email" class="input-login border-0 fw-bold" placeholder="Email" type="email" required />
+        <input id="email" name="email" class="input-login border-0 fw-bold" placeholder="Email" type="email" required />
         <a asp-action="Index" class="option-login text-decoration-none d-inline-block">
             <span class="hover-underline d-inline-block position-relative">Voltar</span>
         </a>

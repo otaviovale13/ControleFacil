@@ -164,3 +164,65 @@ async function LogarUsuario(e) {
         });
     }
 }
+
+async function EnviarLinkRecuperacao(e) {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value;
+
+    if (!email) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Campos obrigatórios',
+            text: 'Por favor, preencha todos os campos.'
+        });
+        return;
+    }
+
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Email inválido',
+            text: 'Digite um email válido.'
+        });
+        return;
+    }
+
+    const usuario = { email };
+
+    try {
+        const response = await fetch('/Login/EnviarLinkRecuperacao', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(usuario)
+        });
+
+        if (response.ok) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Email enviado!',
+                text: `Um link foi enviado para o seu e-mail.!`
+            });
+            email = "";
+        } else if (response.status === 409) {
+            const error = await response.text();
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro ao enviar!',
+                text: error
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro!',
+                text: 'Erro inesperado ao enviar.'
+            });
+        }
+    } catch (error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Erro na requisição',
+            text: error.message
+        });
+    }
+}

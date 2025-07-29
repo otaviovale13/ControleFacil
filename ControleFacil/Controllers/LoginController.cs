@@ -106,15 +106,19 @@ namespace ControleFacil.Controllers
             });
         }
 
-        [HttpPost]
-        public async Task<IActionResult> EnviarLinkRecuperacao(string email)
+        public class EsqueceuModel
         {
-            var usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.Email == email);
+            public string Email { get; set; }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EnviarLinkRecuperacao([FromBody] EsqueceuModel model)
+        {
+            var usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.Email == model.Email);
 
             if (usuario == null)
             {
-                TempData["Erro"] = "Email não encontrado.";
-                return RedirectToAction("Esqueceu");
+                return Conflict("Email não encontrado.");
             }
 
             // Gerar token único
@@ -138,8 +142,7 @@ namespace ControleFacil.Controllers
                 $"Clique no link para redefinir sua senha: <a href=\"{link}\">{link}</a>"
             );
 
-            TempData["Mensagem"] = "Um link foi enviado para o seu e-mail.";
-            return RedirectToAction("Esqueceu");
+            return Ok();
         }
 
         [HttpGet]
