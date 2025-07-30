@@ -2,14 +2,26 @@
     ViewData["Title"] = "Nova Senha";
 }
 
-<div class="d-flex">
+<div class="login-wrapper d-flex w-100 vh-100">
     <div class="img-login"></div>
-    <form asp-action="SalvarNovaSenha" method="post" class="d-flex align-items-center justify-content-center text-center flex-column container-login gap-4">
+
+    <form onsubmit="return SalvarNovaSenha(event)" class="container-login text-center d-flex flex-column justify-content-center align-items-center gap-4">
         <input type="hidden" name="token" value="@ViewData["Token"]" />
-        <h1 class="title-login fw-normal">Nova Senha</h1>
-        <p class="paragraph-login fw-normal">Coloque sua nova senha e a confirme</p>
-        <input name="novaSenha" class="input-login border-0 fw-bold" placeholder="Senha" type="password" required />
-        <input name="confirmarSenha" class="input-login border-0 fw-bold" placeholder="Confirmar Senha" type="password" required />
-        <button type="submit" class="btn-login text-center border-0 fw-bold">Confirmar</button>
+
+        <h1 class="title-login">Nova Senha</h1>
+
+        <p class="paragraph-login">Coloque sua nova senha e a confirme</p>
+
+        <div class="position-relative">
+            <i class="bi bi-lock input-icon position-absolute"></i>
+            <input id="senha" class="input-login fw-bold w-100 position-relative" placeholder="Senha" type="password" />
+        </div>
+
+        <div class="position-relative">
+            <i class="bi bi-lock input-icon position-absolute"></i>
+            <input id="confirmarSenha" class="input-login fw-bold w-100 position-relative" placeholder="Confirmar Senha" type="password" />
+        </div>
+
+        <button type="submit" class="btn-login fw-bold mt-3 border-0">Confirmar</button>
     </form>
 </div>

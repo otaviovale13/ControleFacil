@@ -121,7 +121,6 @@ namespace ControleFacil.Controllers
                 return Conflict("Email não encontrado.");
             }
 
-            // Gerar token único
             var token = Guid.NewGuid().ToString();
             var tokenRecuperacao = new TokenRecuperacao
             {
@@ -133,7 +132,6 @@ namespace ControleFacil.Controllers
             _context.TokensRecuperacao.Add(tokenRecuperacao);
             await _context.SaveChangesAsync();
 
-            // Criar link com token
             var link = Url.Action("Senha", "Login", new { token = token }, Request.Scheme);
 
             await _emailService.EnviarEmailAsync(
@@ -162,33 +160,29 @@ namespace ControleFacil.Controllers
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> SalvarNovaSenha(string token, string novaSenha, string confirmarSenha)
+        public class SenhaModel
         {
-            if (novaSenha != confirmarSenha)
-            {
-                TempData["Erro"] = "As senhas não coincidem.";
-                return RedirectToAction("Senha", new { token });
-            }
+            public string Senha { get; set; }
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> SalvarNovaSenha(string token, [FromBody] SenhaModel model)
+        {
             var tokenValido = await _context.TokensRecuperacao
                 .Include(t => t.Usuario)
                 .FirstOrDefaultAsync(t => t.Token == token && t.ValidoAte > DateTime.Now);
 
             if (tokenValido == null)
             {
-                TempData["Erro"] = "Token inválido ou expirado.";
-                return RedirectToAction("Esqueceu");
+                return Conflict("Token inválido ou expirado.");
             }
 
             var usuario = tokenValido.Usuario;
 
-            // ✅ Adicione os logs aqui:
             Console.WriteLine("ID do usuário: " + usuario.Id);
-            Console.WriteLine("Nova senha (hash): " + BCrypt.Net.BCrypt.HashPassword(novaSenha));
+            Console.WriteLine("Nova senha (hash): " + BCrypt.Net.BCrypt.HashPassword(model.Senha));
 
-            // Atualiza e salva a nova senha
-            usuario.Senha = BCrypt.Net.BCrypt.HashPassword(novaSenha);
+            usuario.Senha = BCrypt.Net.BCrypt.HashPassword(model.Senha);
 
             _context.Attach(usuario);
             _context.Entry(usuario).Property(u => u.Senha).IsModified = true;
@@ -196,8 +190,7 @@ namespace ControleFacil.Controllers
             _context.TokensRecuperacao.Remove(tokenValido);
             await _context.SaveChangesAsync();
 
-            TempData["Mensagem"] = "Senha redefinida com sucesso!";
-            return RedirectToAction("Index");
+            return Ok();
         }
     }
 }

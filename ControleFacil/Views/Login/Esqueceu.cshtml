@@ -4,15 +4,24 @@
     ViewData["Title"] = "Esqueceu Senha";
 }
 
-<div class="d-flex">
+<div class="login-wrapper d-flex w-100 vh-100">
     <div class="img-login"></div>
-    <form onsubmit="return EnviarLinkRecuperacao(event)" class="d-flex align-items-center justify-content-center text-center flex-column container-login gap-4">
-        <h1 class="title-login fw-normal">Esqueceu sua senha?</h1>
-        <p class="paragraph-login fw-normal">Coloque o email que irá receber a nova senha</p>
-        <input id="email" name="email" class="input-login border-0 fw-bold" placeholder="Email" type="email" required />
-        <a asp-action="Index" class="option-login text-decoration-none d-inline-block">
-            <span class="hover-underline d-inline-block position-relative">Voltar</span>
+
+    <form onsubmit="return EnviarLinkRecuperacao(event)" class="container-login text-center d-flex flex-column justify-content-center align-items-center gap-4">
+
+        <h1 class="title-login">Esqueceu sua senha?</h1>
+
+        <p class="paragraph-login">Coloque o email que irá receber a nova senha</p>
+
+        <div class="position-relative">
+            <i class="bi bi-envelope input-icon position-absolute"></i>
+            <input id="email" class="input-login fw-bold w-100 position-relative" placeholder="Email" type="email" />
+        </div>
+
+        <a asp-action="Index" class="option-login text-decoration-none d-inline-block mt-2">
+            <span class="hover-underline position-relative d-inline-block">Voltar</span>
         </a>
-        <button type="submit" class="btn-login text-center border-0 fw-bold">Enviar</button>
+
+        <button type="submit" class="btn-login fw-bold mt-3 border-0">Enviar</button>
     </form>
 </div>

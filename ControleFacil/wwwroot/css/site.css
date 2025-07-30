@@ -1,126 +1,123 @@
-html {
-  font-size: 14px;
+/* Reset e base */
+* {
+    box-sizing: border-box;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+    background: #2C3E50;
 }
 
 body {
-    background-color: #2C3E50;
-    font-family: Roboto;
-}
-
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
-}
-
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+    background: linear-gradient(135deg, #2C3E50, #34495E);
 }
 
 .img-login {
-    width: 640px;
-    height: 720px;
-    left: 0px;
-    top: 0px;
-    background: url('/img/image 1.png');
+    width: 50%;
+    height: 100%;
+    background: url('/img/image 1.png') center center / cover no-repeat;
 }
 
 .container-login {
-    width: 640px;
-    background-color: #D9D9D9;
+    width: 50%;
+    height: 100%;
+    background-color: #34495E;
+    padding: 4rem 3rem;
+    color: #ffffff;
 }
 
+/* Título */
 .title-login {
-    font-size: 50px;
-    font-family: Roboto;
-    color: #2C3E50;
+    font-size: 2.5rem;
+    font-weight: 600;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+    color: #ffffff;
 }
 
+/* Inputs */
 .input-login {
-    width: 383.38px;
-    height: 60px;
-    background-color: #2C3E50;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 10px;
-    padding: 24px;
-    font-size: 15px;
-    color: #D9D9D9;
+    padding: 1rem 1rem 1rem 3rem;
+    font-size: 1rem;
+    color: #fff;
+    transition: background-color 0.2s ease;
 }
 
-input.input-login:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 1000px #2C3E50 inset !important;
-    -webkit-text-fill-color: #D9D9D9 !important;
-    caret-color: #D9D9D9 !important;
-    transition: background-color 5000s ease-in-out 0s; /* truque para evitar o flash amarelo */
+    .input-login::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .input-login:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+.input-icon {
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.7);
+    pointer-events: none;
 }
 
-.input-login:focus {
-    outline: none;
-    box-shadow: none;
+.btn-login {
+    background-color: #E74C3C;
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 0.75rem 2rem;
+    border-radius: 10px;
+    transition: background-color 0.2s ease-in-out;
 }
+
+    .btn-login:hover {
+        background-color: #c0392b;
+    }
 
 .option-login {
-    font-size: 25px;
-    color: #E74C3C;
-    cursor: pointer;
+    font-size: 1rem;
+    color: #FFDAB9;
+    transition: color 0.3s;
 }
 
-.hover-underline {
-    color: #E74C3C;
-}
+    .option-login:hover {
+        color: #ffffff;
+    }
 
-    /* Linha escondida inicialmente */
     .hover-underline::after {
-        content: "";
+        content: '';
         position: absolute;
-        bottom: 0;
         left: 0;
-        height: 2px;
+        bottom: -3px;
         width: 100%;
-        background-color: #E74C3C;
+        height: 2px;
+        background: #FFDAB9;
         transform: scaleX(0);
         transform-origin: left;
         transition: transform 0.3s ease-in-out;
     }
 
-/* Ativa as duas linhas ao passar o mouse no <a> */
 .option-login:hover .hover-underline::after {
     transform: scaleX(1);
 }
 
-.btn-login {
-    width: 250px;
-    height: 60px;
-    background-color: #2C3E50;
-    border-radius: 10px;
-    font-size: 25px;
-    color: #D9D9D9;
-}
+@media (max-width: 768px) {
+    .login-wrapper {
+        flex-direction: column;
+    }
 
-.input-login:hover {
-    background-color: #34495E; /* tom levemente mais claro no hover */
-}
+    .img-login {
+        width: 100%;
+        height: 40vh;
+    }
 
-.btn-login:hover {
-    background-color: #34495E; /* tom levemente mais claro no hover */
-    transition: background-color 0.2s ease-in-out;
-}
-
-.paragraph-login {
-    font-size: 25px;
-    font-family: Roboto;
-    color: #2C3E50;
+    .container-login {
+        width: 100%;
+        height: auto;
+        padding: 2rem 1.5rem;
+    }
 }

@@ -4,22 +4,35 @@
 
 @model ControleFacil.Models.Usuario
 
-<form onsubmit="return LogarUsuario(event)" class="d-flex">
+<div class="login-wrapper d-flex w-100 vh-100">
     <div class="img-login"></div>
-    <div class="d-flex align-items-center justify-content-center text-center flex-column container-login gap-4">
-        <h1 class="title-login fw-normal">Já possui Conta?</h1>
-        <input id="email" class="input-login border-0 fw-bold" placeholder="Email" type="email" />
-        <input id="senha" class="input-login border-0 fw-bold" placeholder="Senha" type="password" />
-        <a asp-action="Esqueceu" class="option-login text-decoration-none d-inline-block">
-            <span class="hover-underline d-inline-block position-relative">Esqueceu a Senha?</span>
+
+    <form onsubmit="return LogarUsuario(event)" class="container-login text-center d-flex flex-column justify-content-center align-items-center gap-4">
+
+        <h1 class="title-login">Bem-vindo de volta!</h1>
+
+        <div class="position-relative">
+            <i class="bi bi-envelope input-icon position-absolute"></i>
+            <input id="email" class="input-login fw-bold w-100 position-relative" placeholder="Email" type="email" />
+        </div>
+
+        <div class="position-relative">
+            <i class="bi bi-lock input-icon position-absolute"></i>
+            <input id="senha" class="input-login fw-bold w-100 position-relative" placeholder="Senha" type="password" />
+        </div>
+
+        <a asp-action="Esqueceu" class="option-login text-decoration-none d-block mt-2">
+            <span class="hover-underline position-relative d-inline-block">Esqueceu a Senha?</span>
         </a>
-        <a asp-action="Cadastro" class="option-login text-decoration-none">
-            <span class="hover-underline d-inline-block position-relative">Não possui conta?</span><br />
-            <span class="hover-underline d-inline-block position-relative">Cadastre-se agora mesmo!</span>
+
+        <a asp-action="Cadastro" class="option-login text-decoration-none d-block mt-2">
+            <span class="hover-underline position-relative d-inline-block">Não possui conta?</span><br />
+            <span class="hover-underline position-relative d-inline-block">Cadastre-se agora mesmo!</span>
         </a>
-        <button type="submit" class="btn-login text-center border-0 fw-bold">Entrar</button>
-    </div>
-</form>
+
+        <button type="submit" class="btn-login fw-bold mt-3 border-0">Entrar</button>
+    </form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
