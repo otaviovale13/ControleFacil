@@ -317,3 +317,24 @@ async function SalvarNovaSenha(e) {
         return;
     }
 }
+
+function olhoMagico() {
+    const olho = document.getElementById("olho");
+    const saldos = document.querySelectorAll(".saldo");
+
+    if (olho.classList.contains("bi-eye")) {
+        olho.classList.replace("bi-eye", "bi-eye-slash");
+
+        saldos.forEach(saldo => {
+            const valor = saldo.textContent.trim();
+            saldo.dataset.real = valor; // salva o valor real
+            saldo.textContent = '*'.repeat(valor.length); // mostra asteriscos
+        });
+    } else {
+        olho.classList.replace("bi-eye-slash", "bi-eye");
+
+        saldos.forEach(saldo => {
+            saldo.textContent = saldo.dataset.real || "R$ 0,00"; // restaura
+        });
+    }
+}

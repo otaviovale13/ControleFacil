@@ -2,7 +2,60 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@{
+    ViewData["LayoutType"] = "A";
+}
+
+<div class="text-center d-flex flex-column justify-content-center align-items-center gap-4 py-5 px-2">
+    <h1 class="fs-2 text-light title-control">Maio <i class="bi bi-chevron-down fs-4"></i></h1>
+
+    <div class="bg-light p-4 d-flex flex-column flex-md-row w-100 w-md-75 justify-content-between rounded-4 shadow-lg gap-4">
+        <div>
+            <h2 class="fw-normal text-secondary">Receitas</h2>
+            <h3 class="saldo text-success fw-bold">R$ 3.877,60</h3>
+        </div>
+        <div>
+            <h2 class="fw-normal text-secondary">Saldo</h2>
+            <h3 class="saldo fw-bold text-control">R$ 1.070,50 <i id="olho" class="bi bi-eye ms-2" onclick="olhoMagico()"></i></h3>
+        </div>
+        <div>
+            <h2 class="fw-normal text-secondary">Despesas</h2>
+            <h3 class="saldo text-danger fw-bold">R$ 3.200,43</h3>
+        </div>
+    </div>
+
+    <h1 class="fs-2 text-light title-control">Contas</h1>
+    <div class="bg-light p-4 d-flex w-100 w-md-75 justify-content-between rounded-4 shadow-lg flex-wrap gap-3">
+        <div class="text-center">
+            <img src="/img/Ellipse 1.png" class="logo mb-2" />
+            <h3 class="saldo text-success fw-bold">R$ 750,00</h3>
+        </div>
+        <div class="text-center">
+            <img src="/img/image.png" class="logo mb-2" />
+            <h3 class="saldo text-success fw-bold">R$ 120,50</h3>
+        </div>
+        <div class="text-center">
+            <img src="/img/image(1).png" class="logo mb-2" />
+            <h3 class="saldo text-success fw-bold">R$ 80,00</h3>
+        </div>
+        <div class="text-center">
+            <img src="/img/image(2).png" class="logo mb-2" />
+            <h3 class="saldo text-success fw-bold">R$ 120,00</h3>
+        </div>
+    </div>
+
+    <h1 class="fs-2 text-light title-control mt-4">Total:</h1>
+    <h2 class="saldo fs-2 text-light title-control">R$ 1.070,50</h2>
+
+    <div class="bg-light p-4 d-flex w-100 w-md-50 flex-column rounded-4 gap-3 shadow-lg">
+        <h3 class="fw-normal text-dark">Cartão de crédito</h3>
+        <div class="d-flex gap-2 align-items-center justify-content-center flex-wrap">
+            <button class="btn btn-dark shadow-sm px-4">Faturas abertas</button>
+            <button class="btn btn-outline-dark shadow-sm px-4">Faturas fechadas</button>
+        </div>
+        <div class="text-center">
+            <img src="/img/Ellipse 1.png" class="logo mb-2" />
+            <h3 class="saldo text-danger fw-bold">R$ 850,00</h3>
+        </div>
+    </div>
 </div>
