@@ -1,3 +1,7 @@
+.negativo {
+    color: #E74C3C;
+}
+
 .text-blue-control {
     color: #34495E;
 }
@@ -7,17 +11,24 @@ footer {
     background-color: #f8f9fa;
 }
 
-.bi-chevron-down,
-.bi-eye,
-.bi-eye-slash {
+.bi-chevron-down {
     cursor: pointer;
     color: #fff;
     transition: color 0.3s ease;
 }
 
+.bi-person-circle,
+.bi-eye,
+.bi-eye-slash {
+    cursor: pointer;
+    color: #34495E;
+    transition: color 0.3s ease;
+}
+
+    .bi-person-circle:hover,
     .bi-eye:hover,
-    .bi-chevron-down:hover {
-        color: #FFDAB9;
+    .bi-eye-slash:hover {
+        color: #c0392b;
     }
 
 .title-control {
@@ -33,13 +44,9 @@ footer {
 body, html {
     margin: 0;
     padding: 0;
-    height: 100%;
-    width: 100%;
+    height: auto;
+    width: auto;
     font-family: 'Roboto', sans-serif;
-    background: linear-gradient(135deg, #2C3E50, #34495E);
-}
-
-body {
     background: linear-gradient(135deg, #2C3E50, #34495E);
 }
 
