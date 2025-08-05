@@ -1,8 +1,7 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model ControleFacil.Models.HomeViewModel
 
 @{
+    ViewData["Title"] = "Home Page";
     ViewData["LayoutType"] = "A";
 }
 
@@ -12,41 +11,43 @@
     <div class="bg-light p-4 d-flex flex-column flex-md-row w-75 w-md-75 justify-content-between rounded-4 shadow-lg gap-4">
         <div>
             <h2 class="fw-normal text-secondary">Receitas</h2>
-            <h3 class="saldo text-success fw-bold">R$ 3.877,60</h3>
+            <h3 class="saldo text-success fw-bold">R$ @Model.TotalReceitas.ToString("N2")</h3>
         </div>
         <div>
             <h2 class="fw-normal text-secondary">Saldo</h2>
-            <h3 class="saldo fw-bold text-control">R$ 1.070,50</h3>
+            <h3 class="saldo fw-bold text-control">R$ @Model.Saldo.ToString("N2")</h3>
             <i id="olho" class="bi bi-eye ms-2 fs-1" onclick="olhoMagico()"></i>
         </div>
         <div>
             <h2 class="fw-normal text-secondary">Despesas</h2>
-            <h3 class="saldo text-danger fw-bold negativo">R$ 3.200,43</h3>
+            <h3 class="saldo text-danger fw-bold negativo">R$ @Model.TotalDespesas.ToString("N2")</h3>
         </div>
     </div>
 
     <h1 class="fs-2 text-light title-control">Contas</h1>
     <div class="bg-light p-4 d-flex w-75 w-md-75 justify-content-between rounded-4 shadow-lg flex-wrap gap-3">
-        <div class="text-center">
-            <img src="/img/Ellipse 1.png" class="logo mb-2" />
-            <h3 class="saldo text-success fw-bold">R$ 750,00</h3>
-        </div>
-        <div class="text-center">
-            <img src="/img/image.png" class="logo mb-2" />
-            <h3 class="saldo text-success fw-bold">R$ 120,50</h3>
-        </div>
-        <div class="text-center">
-            <img src="/img/image(1).png" class="logo mb-2" />
-            <h3 class="saldo text-success fw-bold">R$ 80,00</h3>
-        </div>
-        <div class="text-center">
-            <img src="/img/image(2).png" class="logo mb-2" />
-            <h3 class="saldo text-success fw-bold">R$ 120,00</h3>
-        </div>
+        @foreach (var conta in Model.Contas)
+        {
+            <div class="text-center">
+                @{
+                    string imagemBanco = conta.Nome.ToLower() switch
+                    {
+                        "nubank" => "/img/image.png",
+                        "santander" => "/img/Ellipse 1.png",
+                        "itaú" => "/img/image(1).png",
+                        "banco do brasil" => "/img/image(2).png",
+                        _ => "/img/image.png"
+                    };
+                }
+                <img src="@imagemBanco" class="logo mb-2" />
+
+                <h3 class="saldo text-success fw-bold">R$ @conta.Valor.ToString("N2")</h3>
+            </div>
+        }
     </div>
 
     <h1 class="fs-2 text-light title-control mt-4">Total:</h1>
-    <h2 class="saldo fs-2 text-light title-control">R$ 1.070,50</h2>
+    <h2 class="saldo fs-2 text-light title-control">R$ @Model.Saldo.ToString("N2")</h2>
 
     <div class="bg-light p-4 d-flex w-75 w-md-50 flex-column rounded-4 gap-3 shadow-lg">
         <h3 class="fw-normal text-dark">Cartão de crédito</h3>
@@ -56,7 +57,7 @@
         </div>
         <div class="text-center">
             <img src="/img/Ellipse 1.png" class="logo mb-2" />
-            <h3 class="saldo text-danger fw-bold">R$ 850,00</h3>
+            <h3 class="saldo text-danger fw-bold">R$ @Model.FaturaAberta.ToString("N2")</h3>
         </div>
     </div>
 </div>

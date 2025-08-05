@@ -1,40 +1,71 @@
-using System.Diagnostics;
-using ControleFacil.Data;
-using ControleFacil.Models;
-using ControleFacil.Services;
 using Microsoft.AspNetCore.Mvc;
+using ControleFacil.Data;
+using Microsoft.EntityFrameworkCore;
+using ControleFacil.Models;
 
-namespace ControleFacil.Controllers
+public class HomeController : Controller
 {
-    public class HomeController : Controller
+    private readonly DBContext _context;
+
+    public HomeController(DBContext context)
     {
+        _context = context;
+    }
 
-        private readonly DBContext _context;
+    public class ContaViewModel
+    {
+        public int Id { get; set; }
+        public string Nome { get; set; }
+        public decimal Valor { get; set; }
+    }
 
-        public HomeController(DBContext context)
+
+    public async Task<IActionResult> Index()
+    {
+        int usuarioId = 1; // Pegue do login/sessão real
+
+        var receitas = await _context.Receitas
+            .Where(r => r.UsuarioId == usuarioId)
+            .SumAsync(r => r.Valor);
+
+        var despesas = await _context.Despesas
+            .Where(d => d.UsuarioId == usuarioId)
+            .SumAsync(d => d.Valor);
+
+        var contas = await _context.Contas
+            .Where(c => c.UsuarioId == usuarioId)
+            .Select(conta => new ContaViewModel
+            {
+                Nome = conta.Nome,
+                Id = conta.Id,
+                Valor = _context.Receitas
+                            .Where(r => r.ContaId == conta.Id)
+                            .Sum(r => (decimal?)r.Valor) ?? 0
+                        -
+                        _context.Despesas
+                            .Where(d => d.ContaId == conta.Id)
+                            .Sum(d => (decimal?)d.Valor) ?? 0
+            })
+            .ToListAsync();
+
+        var saldos = await _context.SaldoContas
+            .Where(sc => sc.UsuarioId == usuarioId)
+            .ToListAsync();
+
+        var saldo = receitas - despesas;
+
+        var fatura = await _context.Faturas
+            .Where(f => f.Conta.UsuarioId == usuarioId && f.Estado == 1) // só abertas
+            .SumAsync(f => f.Valor);
+
+        var viewModel = new HomeViewModel
         {
-            _context = context;
-        }
+            TotalReceitas = receitas,
+            TotalDespesas = despesas,
+            Contas = contas,
+            FaturaAberta = fatura
+        };
 
-        public IActionResult Index()
-        {
-            var user = _context.Usuarios.FirstOrDefault(u => u.Id == 1);
-            if (user == null)
-                return NotFound($"Usuário com ID 1 não encontrado.");
-
-            ViewBag.Usuario = user; // Passa o usuário para a view e layout
-            return View(user);
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        return View(viewModel);
     }
 }

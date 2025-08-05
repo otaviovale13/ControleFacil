@@ -1,5 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ControleFacil.Models
 {
@@ -22,5 +23,10 @@ namespace ControleFacil.Models
         [Required]
         [DataType(DataType.Password)]
         public string Senha { get; set; }
+
+        public ICollection<Receita> Receitas { get; set; }
+        public ICollection<Despesa> Despesas { get; set; }
+        public ICollection<Conta> Contas { get; set; }
+        public ICollection<Parcelamento> Parcelamentos { get; set; }
     }
 }
