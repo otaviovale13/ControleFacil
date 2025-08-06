@@ -32,19 +32,13 @@ public class HomeController : Controller
             .Where(d => d.UsuarioId == usuarioId)
             .SumAsync(d => d.Valor);
 
-        var contas = await _context.Contas
+        var contas = await _context.SaldoContas
             .Where(c => c.UsuarioId == usuarioId)
-            .Select(conta => new ContaViewModel
+            .Select(c => new ContaViewModel
             {
-                Nome = conta.Nome,
-                Id = conta.Id,
-                Valor = _context.Receitas
-                            .Where(r => r.ContaId == conta.Id)
-                            .Sum(r => (decimal?)r.Valor) ?? 0
-                        -
-                        _context.Despesas
-                            .Where(d => d.ContaId == conta.Id)
-                            .Sum(d => (decimal?)d.Valor) ?? 0
+                Id = c.ContaId,
+                Nome = c.Nome,
+                Valor = c.Valor
             })
             .ToListAsync();
 

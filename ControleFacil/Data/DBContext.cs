@@ -20,7 +20,10 @@ namespace ControleFacil.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<SaldoConta>().HasNoKey().ToView("SaldoContas");
+            modelBuilder
+                .Entity<SaldoConta>()
+                .HasNoKey()
+                .ToView("SaldoContas");
 
             // Usuário
             modelBuilder.Entity<Usuario>()
